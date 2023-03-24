@@ -20,7 +20,7 @@ A tuple can hold
 * or no values: `()`
 
 In any case, it just looks like a list of parameters. And tuple values can have labels just like function parameters, too.<br>
-Technically, function parameters are not actually tuples, but conceptually we can think of passing parameters and returning values as being the same thing and having same syntax.
+Technically, function parameters are not actually tuples, but conceptually we can think of passing parameters and returning values as being the same thing and having the same syntax.
 
 Everything is a tuple.
 
