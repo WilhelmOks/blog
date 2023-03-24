@@ -57,11 +57,11 @@ For a concrete example, you can take a look at my implementation of ArrayBuilder
 
 So, even when we return 0 values, we still return something.<br>
 But what if we actually don't want to return anything, not even `Void`?<br>
-There is also a type for that. It's called `Never`.
+There is a type for that and it's called `Never`.
 
-## What is Never and how is it useful?
+## What is Never and what is it used for?
 `Never` is a type that you can never have an instance of.<br>
-So, it's impossible to pass around or return a value of Never.
+So, it's impossible to pass around or return a value of `Never`.
 
 One example to illustrate the use of `Never` is the global function `fatalError()`.<br>
 When called, it just terminates the program with a specified message.<br>
