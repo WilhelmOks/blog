@@ -20,7 +20,7 @@ A tuple can hold
 * Or one value: `(value)`
 
 In any case, it just looks like a list of parameters. And tuple values can have labels just like function parameters, too.<br>
-Technically, function parameters might actually not be tuples, but conceptually we can think of passing parameters and returning values as being the same thing and having same syntax.
+Technically, function parameters are not actually tuples, but conceptually we can think of passing parameters and returning values as being the same thing and having same syntax.
 
 Everything is a tuple.
 
@@ -31,9 +31,9 @@ let valueB = 5
 // valueA is the same as valueB
 ```
 
-An empty tuple is the same as Void.
-In Swift, we normally omit Void when we don't return anything from a function.<br>
-Implicitly, we just return 0 values, which is represented by an empty tuple () or Void.
+A tuple with no values (empty tuple) is the same as `Void`.
+In Swift, we normally omit `Void` when we don't return anything from a function.<br>
+Implicitly, we just return 0 values, which is represented by an empty tuple `()` or `Void`.
 
 Even though an empty tuple represents 0 values, it can still be seen as a value itself.<br>
 We can store that value in a variable and pass it around like any other value:
@@ -41,51 +41,51 @@ We can store that value in a variable and pass it around like any other value:
 let noValues1 = ()
 let noValues2 = Void()
 ```
-This is a somewhat special value though, because it is the only possible value for an empty tuple.
+This is a somewhat special value though, because it is the only possible value that an empty tuple can have.
 
 You might wonder how this is useful.<br>
-One use case is Swift's result builders.
+One interesting use case is Swift's result builders.
 
 To make it more clear, let's take a look at SwiftUI:<br>
-In SwiftUI there is a special result builder, namely ViewBuilder, which builds a View from a list of expressions which also evaluate to View, respectively.<br>
-A result builder can consume an arbitrary amount of expressions, including 0.<br>
-So, a View actually represents many views, one view, or no views. For the case that there are no views, there is a special view: EmptyView.<br>
-When we are building a View based on many conditions and the compiler wants us to specify a View for a case where we don't want to have any View, we just specify EmptyView().
+In SwiftUI, there is a special result builder `ViewBuilder`, which builds a `View` from a list of expressions which also evaluate to `View`, respectively.<br>
+A result builder can consume an arbitrary amount of expressions, including 0 expressions.<br>
+So, a `View` actually represents many views, one view, or no views. And there is a special view that represents 0 views: `EmptyView`.<br>
+When we are building a `View` based on a set of conditions and the compiler wants us to specify a `View` for a case where we don't want to have any view, we just provide an `EmptyView()`.
 
-And when we have result builders that work with any kind of values, not just those conforming to View, we can use Void to represent 0 values, just like we use EmptyView() to represent 0 views.<br>
-For a concrete example, you can have a look at my implementation of ArrayBuilder: https://github.com/WilhelmOks/ArrayBuilder
+Similarly, when we have result builders that work with any kind of values, not just those conforming to `View`, we can use `Void` to represent 0 values, just like we use `EmptyView()` to represent 0 views.<br>
+For a concrete example, you can take a look at my implementation of ArrayBuilder: https://github.com/WilhelmOks/ArrayBuilder
 
 So, even when we return 0 values, we still return something.<br>
-But what if we actually don't want to return anything, not even Void?<br>
-There is also a type for that. It's called Never.
+But what if we actually don't want to return anything, not even `Void`?<br>
+There is also a type for that. It's called `Never`.
 
 ## What is Never and how is it useful?
-Never is a type that you can never have an instance of.<br>
+`Never` is a type that you can never have an instance of.<br>
 So, it's impossible to pass around or return a value of Never.
 
-One example to illustrate the use of Never is the global function fatalError().<br>
+One example to illustrate the use of `Never` is the global function `fatalError()`.<br>
 When called, it just terminates the program with a specified message.<br>
-This function has Never as its return type and it means that it never returns.<br>
-Because of the special type Never, the compiler will give us a warning when we call fatalError and then write some other code statements after that.<br>
-Since fatalError never returns, the code after it will never be executed.<br>
-The compiler will tell us, that assuming that the code after fatalError() will be executed, is a mistake. Nice!
+This function has `Never` as its return type and it means that it never returns.<br>
+Because of the special type `Never`, the compiler will give us a warning when we call `fatalError` with some other code statements after that.<br>
+Since `fatalError` never returns, the code after it will never be executed.<br>
+The compiler will tell us, that assuming that the code after `fatalError()` will be executed, is a mistake. Nice!
 
-For another example where Never is useful, let's take a look at the Result type.<br>
-Result has two generic parameters, Success and Failure.<br>
+For another example where `Never` is useful, let's take a look at the `Result` type that is part of Swift's standard library.<br>
+`Result` has two generic parameters, `Success` and `Failure`.<br>
 `enum Result<Success, Failure> where Failure : Error`<br>
-We can specify any combination of Success and Failure types, which represent a result for some operation.<br>
-But what if we want to specify a Result that never fails?
+We can specify any combination of `Success` and `Failure` types, which represent a result for some operation that may succeed or fail.<br>
+But what if we want to specify a `Result` that never fails?
 
-For example, using Combine to publish the values from a textfield would have String as the Result's Success type. <br>
-But since it will never produce any errors or fail, what should be the Failure type?<br>
-It wouldn't be appropriate to use Void as the Failure type, as this would indicate that it can fail. And the only possible way of failure would be represented by the only possible value that Void can have: Void().<br>
-And the compiler would force us to handle this failure case by explicitly checking if the Result is .success() or .failure().
+For example, using the `Combine` framework to publish the stream of values from a textfield, we would have `String` as the `Result`'s `Success` type. <br>
+But since it will never produce any errors or fail, what should be the `Failure` type?<br>
+It wouldn't be appropriate to use `Void` as the `Failure` type, as this would indicate that it can fail. And the only possible way of failure would be represented by the only possible value that `Void` can have: `Void()`.<br>
+And the compiler would force us to handle this failure case by explicitly checking if the `Result` is `.success()` or `.failure()`.
 
-Using Never as the Failure type solves the problem: <br>
-It communicates the intent that the Result will never be a failure.<br>
-And it also enables the compiler to completely eliminate the .faulure() case. We are no longer forced to handle it in code and it becomes more readable.
+Using `Never` as the `Failure` type solves the problem: <br>
+It communicates the intent that the `Result` will never be a failure.<br>
+And it also enables the compiler to completely eliminate the `.failure()` case. We are no longer forced to handle it in code and it becomes more readable.
 
-In general, Never is a great tool to use the type system to make code more correct and clear, without any compromises.
+In general, `Never` is a great tool to use the type system to make code more correct and clear, without any compromises.
 
 ## Conclusion
 Swift's type system looks very similar to those of other C-like languages on the surface. <br>
