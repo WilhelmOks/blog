@@ -1,12 +1,17 @@
 # Swift's Type System
 
+This is a summary of my thoughts and findings about Swift's type system and how it differs from other programming languages.<br>
+It assumes a basic understanding and familiarity with Swift and explains some interesting details that you might not be aware of.
+
+## Passing and returning data
+
 Functions or methods can have parameters. They can have many parameters, just one parameter or no parameters at all.<br>
 This is nothing unusual in the world of programming and anyone can think of several use cases for an arbitrary number of parameters.
 
 When we look at what functions can return though, for most programming languages the realization is: Just one value or nothing (typically indicated by "void").<br>
 The question is: Wouldn't it be great to be able to ruturn many values just like we can pass many values as parameters?
 
-Many languages have added support for tuples at some later point in their development to allow to return more than one value at once.<br>
+Some languages (C#) have added support for tuples at a later point in their development to allow to return more than one value at once.<br>
 And this is great. But since they are just additions, they don't feel very natural to the language and are technically just anonymous structures which hold multiple values wrapped in a single value.<br>
 Or, in the case of JavaScript, arrays are used as "a poor man's" tuples.
 
