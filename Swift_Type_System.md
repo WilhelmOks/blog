@@ -82,7 +82,7 @@ We can specify any combination of `Success` and `Failure` types, which represent
 But what if we want to specify a `Result` that never fails?
 
 For example, using the `Combine` framework to publish the stream of values from a textfield, we would have `String` as the `Result`'s `Success` type. <br>
-But since it will never produce any errors or fail, what should be the `Failure` type?<br>
+But since it will never fail, what should be the `Failure` type?<br>
 It wouldn't be appropriate to use `Void` as the `Failure` type, as this would indicate that it can fail. And the only possible way of failure would be represented by the only possible value that `Void` can have: `Void()`.<br>
 And the compiler would force us to handle this failure case by explicitly checking if the `Result` is `.success()` or `.failure()`.
 
