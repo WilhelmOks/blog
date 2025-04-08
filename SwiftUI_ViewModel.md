@@ -1,6 +1,6 @@
-# ViewModels in SwiftUI
+# View Models in SwiftUI
 
-For SwiftUI arguably the most common architectural pattern is MVVM. It as simple as having a View which has a reference to an instance of an `Observable` ViewModel class.
+For SwiftUI arguably the most common architectural pattern is MVVM. It's as simple as having a View which has a reference to an instance of an `Observable` ViewModel class.
 
 This little article is a recommendation how to apply this pattern in a modern and elegant way.
 It assumes a familiarity with SwiftUI and is not intended as a tutorial how to use ViewModels in SwiftUI.
